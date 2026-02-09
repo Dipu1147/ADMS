@@ -1,0 +1,1 @@
+In Frontend Version-1, the system focuses on user interface design using HTML and CSS. Form submission does not update the table dynamically because no JavaScript or backend logic is used at this stage. Functional features such as add, search, and delete will be implemented in future versions
