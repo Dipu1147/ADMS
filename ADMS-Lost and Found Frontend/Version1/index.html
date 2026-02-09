@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lost and Found Management System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            width: 70%;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input, textarea, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+        }
+
+        .note {
+            margin-top: 10px;
+            color: gray;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Lost and Found Object Management System</h1>
+
+<!-- Form -->
+<div class="container">
+    <h2>Report Lost / Found Item</h2>
+
+    <form>
+        <label>Item Name</label>
+        <input type="text" placeholder="Enter item name">
+
+        <label>Category</label>
+        <select>
+            <option>Electronics</option>
+            <option>Documents</option>
+            <option>Personal Items</option>
+            <option>Clothing</option>
+            <option>Others</option>
+        </select>
+
+        <label>Description</label>
+        <textarea></textarea>
+
+        <label>Location</label>
+        <input type="text">
+
+        <label>Status</label>
+        <select>
+            <option>Lost</option>
+            <option>Found</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<!-- Search -->
+<div class="container">
+    <h2>Search Reported Items</h2>
+    <input type="text" placeholder="Search by item name or category">
+    <button>Search</button>
+
+    <p class="note">
+        *Search functionality will be implemented in backend / JavaScript in Version-2.
+    </p>
+</div>
+
+<!-- Table -->
+<div class="container">
+    <h2>Reported Items</h2>
+
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Category</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        <tr>
+            <td>Mobile Phone</td>
+            <td>Electronics</td>
+            <td>Library</td>
+            <td>Lost</td>
+            <td><button class="delete-btn">Delete</button></td>
+        </tr>
+
+        <tr>
+            <td>Wallet</td>
+            <td>Personal Items</td>
+            <td>Cafeteria</td>
+            <td>Found</td>
+            <td><button class="delete-btn">Delete</button></td>
+        </tr>
+    </table>
+
+    <p class="note">
+        *Delete functionality will be handled using backend logic in later versions.
+    </p>
+</div>
+
+</body>
+</html>
