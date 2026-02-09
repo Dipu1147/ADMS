@@ -15,7 +15,6 @@ It allows users to enter lost/found item information and view the data in a stru
 ### Technologies Used
 - HTML
 - CSS
-- JavaScript
 
 ### How to Run
 1. Clone the repository
