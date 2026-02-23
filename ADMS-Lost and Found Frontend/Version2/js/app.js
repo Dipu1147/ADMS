@@ -23,9 +23,8 @@ document.getElementById('objectForm').addEventListener('submit', function(event)
         loadObjects(); // Reload the objects list after submission
         document.getElementById('objectForm').reset(); // Reset the form fields
         document.getElementById('objectId').value = ''; // Clear the hidden object ID field
-        showNotification('Record Added/Updated Successfully!', 'success');
     })
-    .catch(error => showNotification('Error: ' + error.message, 'danger'));
+    .catch(error => console.error('Error: ' + error.message));
 });
 
 // Load all objects from the backend
@@ -51,7 +50,7 @@ function loadObjects() {
                 tableBody.appendChild(row); // Append new row to table
             });
         })
-        .catch(error => showNotification('Error loading objects: ' + error.message, 'danger'));
+        .catch(error => console.error('Error loading objects:', error));
 }
 
 // Edit object
@@ -65,7 +64,7 @@ function editObject(id) {
             document.getElementById('objectDate').value = object.date;
             document.getElementById('objectId').value = object.id; // Set hidden object ID for update
         })
-        .catch(error => showNotification('Error: ' + error.message, 'danger'));
+        .catch(error => console.error('Error:', error));
 }
 
 // Delete object
@@ -74,17 +73,8 @@ function deleteObject(id) {
         .then(response => response.json())
         .then(() => {
             loadObjects(); // Reload the objects list after deletion
-            showNotification('Record Deleted Successfully!', 'success');
         })
-        .catch(error => showNotification('Error: ' + error.message, 'danger'));
-}
-
-// Show notifications (success or error)
-function showNotification(message, type) {
-    const notificationMessage = document.getElementById('notificationMessage');
-    notificationMessage.textContent = message;
-    const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
-    modal.show();
+        .catch(error => console.error('Error:', error));
 }
 
 // Initialize objects when the page loads
