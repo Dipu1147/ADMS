@@ -1,23 +1,30 @@
-# ADMS
-# Advanced Database-Driven Lost and Found Object Management System
-## Frontend Version 1
+Advanced Database-Driven Lost and Found Object Management System (ADMS) Frontend Version 2
 
-### Project Description
-This is the Frontend Version 1 of the Advanced Database-Driven Lost and Found Object Management System.
-It allows users to enter lost/found item information and view the data in a structured table.
+Description
 
-### Features
-- Data entry form for lost and found items
-- Display of items in table format
-- Basic CSS styling
-- API communication using JavaScript Fetch API
+This project is a **Lost and Found Object Management System** where users can **view**, **add**, **update**, and **delete** lost and found objects. The frontend allows users to enter details such as **object name**, **description**, **location**, and **date**, and displays the submitted objects in a table.
 
-### Technologies Used
-- HTML
-- CSS
+Tech Stack
 
-### How to Run
-1. Clone the repository
-2. Open `index.html` in a browser
-3. (Optional) Run backend server at `http://localhost:3000`
+HTML for structure
+CSS (Bootstrap) for styling
+JavaScript for interactivity, form handling, and API communication
+
+Installation/Usage
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/ADMS-Frontend-V2.git
+   ```
+2. Navigate to the project directory:
+
+   ```bash
+   cd ADMS-Frontend-V2
+   ```
+3. Open the `index.html` file in your browser.
+
+Screenshots
+
+![Screenshot 1](assets/screenshots/screenshot1.png)
 
