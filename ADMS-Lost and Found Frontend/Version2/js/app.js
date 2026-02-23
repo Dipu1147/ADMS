@@ -1,88 +1,91 @@
-// Fake database (acts like backend)
-let items = [
-    { id: 1, item: "Mobile", category: "Electronics", location: "Library", status: "Lost" },
-    { id: 2, item: "Wallet", category: "Personal", location: "Cafeteria", status: "Found" }
-];
+// Handle form submission
+document.getElementById('objectForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-// READ
-function loadItems() {
-    const table = document.getElementById("itemTable");
-    if (!table) return;
+    const objectId = document.getElementById('objectId').value; // Get the object ID if updating
+    const newObject = {
+        name: document.getElementById('objectName').value,
+        description: document.getElementById('objectDescription').value,
+        location: document.getElementById('objectLocation').value,
+        date: document.getElementById('objectDate').value
+    };
 
-    table.innerHTML = "";
-    items.forEach(i => {
-        table.innerHTML += `
-        <tr>
-            <td>${i.item}</td>
-            <td>${i.category}</td>
-            <td>${i.location}</td>
-            <td>${i.status}</td>
-            <td>
-                <a href="edit.html?id=${i.id}">Edit</a>
-                <button onclick="deleteItem(${i.id})">Delete</button>
-            </td>
-        </tr>`;
-    });
-}
-loadItems();
+    const method = objectId ? 'PUT' : 'POST'; // Decide the method: POST for new, PUT for update
+    const url = objectId ? `http://localhost:5000/api/objects/${objectId}` : 'http://localhost:5000/api/objects';
 
-// CREATE
-const addForm = document.getElementById("addForm");
-if (addForm) {
-    addForm.addEventListener("submit", function (e) {
-        e.preventDefault();
+    fetch(url, {
+        method: method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newObject)
+    })
+    .then(response => response.json())
+    .then(() => {
+        loadObjects(); // Reload the objects list after submission
+        document.getElementById('objectForm').reset(); // Reset the form fields
+        document.getElementById('objectId').value = ''; // Clear the hidden object ID field
+        showNotification('Record Added/Updated Successfully!', 'success');
+    })
+    .catch(error => showNotification('Error: ' + error.message, 'danger'));
+});
 
-        const newItem = {
-            id: Date.now(),
-            item: item.value,
-            category: category.value,
-            location: location.value,
-            status: status.value
-        };
+// Load all objects from the backend
+function loadObjects() {
+    fetch('http://localhost:5000/api/objects')
+        .then(response => response.json())
+        .then(objects => {
+            const tableBody = document.querySelector('#objectsTable tbody');
+            tableBody.innerHTML = ''; // Clear previous rows
 
-        items.push(newItem);
-        document.getElementById("message").innerText = "Record Added Successfully";
-        addForm.reset();
-    });
-}
-
-// DELETE
-function deleteItem(id) {
-    if (confirm("Are you sure you want to delete?")) {
-        items = items.filter(i => i.id !== id);
-        loadItems();
-    }
-}
-
-// UPDATE
-const params = new URLSearchParams(window.location.search);
-const editId = params.get("id");
-
-if (editId) {
-    const itemData = items.find(i => i.id == editId);
-    if (itemData) {
-        editIdField.value = itemData.id;
-        editItem.value = itemData.item;
-        editCategory.value = itemData.category;
-        editLocation.value = itemData.location;
-        editStatus.value = itemData.status;
-    }
+            objects.forEach(obj => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${obj.name}</td>
+                    <td>${obj.description}</td>
+                    <td>${obj.location}</td>
+                    <td>${obj.date}</td>
+                    <td>
+                        <button class="btn btn-info" onclick="editObject(${obj.id})">Edit</button>
+                        <button class="btn btn-danger" onclick="deleteObject(${obj.id})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row); // Append new row to table
+            });
+        })
+        .catch(error => showNotification('Error loading objects: ' + error.message, 'danger'));
 }
 
-const editForm = document.getElementById("editForm");
-if (editForm) {
-    editForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const index = items.findIndex(i => i.id == editIdField.value);
-        items[index] = {
-            id: editIdField.value,
-            item: editItem.value,
-            category: editCategory.value,
-            location: editLocation.value,
-            status: editStatus.value
-        };
-
-        document.getElementById("editMessage").innerText = "Record Updated Successfully";
-    });
+// Edit object
+function editObject(id) {
+    fetch(`http://localhost:5000/api/objects/${id}`)
+        .then(response => response.json())
+        .then(object => {
+            document.getElementById('objectName').value = object.name;
+            document.getElementById('objectDescription').value = object.description;
+            document.getElementById('objectLocation').value = object.location;
+            document.getElementById('objectDate').value = object.date;
+            document.getElementById('objectId').value = object.id; // Set hidden object ID for update
+        })
+        .catch(error => showNotification('Error: ' + error.message, 'danger'));
 }
+
+// Delete object
+function deleteObject(id) {
+    fetch(`http://localhost:5000/api/objects/${id}`, { method: 'DELETE' })
+        .then(response => response.json())
+        .then(() => {
+            loadObjects(); // Reload the objects list after deletion
+            showNotification('Record Deleted Successfully!', 'success');
+        })
+        .catch(error => showNotification('Error: ' + error.message, 'danger'));
+}
+
+// Show notifications (success or error)
+function showNotification(message, type) {
+    const notificationMessage = document.getElementById('notificationMessage');
+    notificationMessage.textContent = message;
+    const modal = new bootstrap.Modal(document.getElementById('notificationModal'));
+    modal.show();
+}
+
+// Initialize objects when the page loads
+window.onload = loadObjects;
