@@ -1,35 +1,70 @@
+/* Body and general layout */
 body {
-    font-family: Arial;
-    margin: 20px;
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-nav a {
-    margin-right: 10px;
-    text-decoration: none;
-    font-weight: bold;
+/* Header Styling */
+h1 {
+    font-weight: 700;
+    color: #007bff;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+/* Card Styles */
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-th, td {
-    border: 1px solid #aaa;
-    padding: 8px;
+.card-body {
+    background-color: #ffffff;
+    padding: 30px;
 }
 
+/* Button Styles */
 button {
-    padding: 5px 10px;
-    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-form {
-    max-width: 400px;
+button:hover {
+    background-color: #218838;
 }
 
-input, select {
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 6px;
+.btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+/* Table Styling */
+.table th {
+    background-color: #28a745;
+    color: white;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+    background-color: #e9f7e2;
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 15px;
+}
+
+.modal-header {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Responsive Design */
+.table-responsive {
+    margin-top: 20px;
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 10px;
 }
